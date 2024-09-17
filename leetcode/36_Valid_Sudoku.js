@@ -13,7 +13,7 @@ const board1 = [
 ]; // true
 
 const board2 = [
-  ["8", "3", ".", ".", "7", ".", ".", ".", "."],
+  ["8", "3", ".", ".", "7", ".", "7", ".", "."],
   ["6", ".", ".", "1", "9", "5", ".", ".", "."],
   [".", "9", "8", ".", ".", ".", ".", "6", "."],
   ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
@@ -24,53 +24,43 @@ const board2 = [
   [".", ".", ".", ".", "8", ".", ".", "7", "9"],
 ]; // false
 
-// 첫 뎁스가 세로 두 번째 뎁스가 가로
-
+// 가로, 세로, 박스들을 각 각 검증하는 변수를 선언해
+// 무엇을 기준으로 검증하냐?
+// 가로는 00 01 02 03 04.. 세로는 00 10 20 30 40.. 서로 바뀌면 되겠지? 검증 시
+// 박스는 00 ~ 02 10 ~ 12 20 ~ 22 어카냐
 var isValidSudoku = function (board) {
-  let n = board.length;
-  let a = new Array(n).fill([]);
+  for (let l = 0; l < board.length; l++) {
+    let row1 = new Set();
+    let row2 = [];
 
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= n; j++) {
-      if (board[i - 1][j - 1] !== ".") {
-        if (i <= 3) {
-          if (j <= 3) {
-            a[Math.ceil(j / 3) - 1].push(board[i - 1][j - 1]);
-          }
-          if (3 < j && j <= 6) {
-            a[Math.ceil(j / 3) + 2].push(board[i - 1][j - 1]);
-          }
-          if (j > 6) {
-            a[Math.ceil(j / 3) + 5].push(board[i - 1][j - 1]);
-          }
-        }
-        if (3 < i && i <= 6) {
-          if (j <= 3) {
-            a[Math.ceil(j / 3) - 1].push(board[i - 1][j - 1]);
-          }
-          if (3 < j && j <= 6) {
-            a[Math.ceil(j / 3) + 2].push(board[i - 1][j - 1]);
-          }
-          if (j > 6) {
-            a[Math.ceil(j / 3) + 5].push(board[i - 1][j - 1]);
-          }
-        }
-        if (i > 6) {
-          if (j <= 3) {
-            a[Math.ceil(j / 3) - 1].push(board[i - 1][j - 1]);
-          }
-          if (3 < j && j <= 6) {
-            a[Math.ceil(j / 3) + 2].push(board[i - 1][j - 1]);
-          }
-          if (j > 6) {
-            a[Math.ceil(j / 3) + 5].push(board[i - 1][j - 1]);
-          }
-        }
-      }
+    let col1 = new Set();
+    let col2 = [];
+
+    let square1 = new Set();
+    let square2 = [];
+
+    for (let r = 0; r < board.length; r++) {
+      if (board[l][r] === ".") continue;
+      row1.add(board[l][r]);
+      row2.push(board[l][r]);
+
+      if (board[r][l] === ".") continue;
+      col1.add(board[r][l]);
+      col2.push(board[r][l]);
+
+      board[l][r];
     }
   }
-
-  return a;
 };
-
+// const board2 = [
+//   ["8", "3", ".", ".", "7", ".", "7", ".", "."],
+//   ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+//   [".", "9", "8", ".", ".", ".", ".", "6", "."],
+//   ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+//   ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+//   ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+//   [".", "6", ".", ".", ".", ".", "2", "8", "."],
+//   [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+//   [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+// ];
 console.log(isValidSudoku(board2));

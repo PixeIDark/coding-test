@@ -13,47 +13,18 @@ const strs = ["eat", "tea", "tan", "ate", "nat", "bat"];
 // 8. 왼쪽과 오른쪽의 차이가 1이면 왼쪽에 해당하는 index의 strs를 배열에 담고 오른쪽 위치 초기화.
 // 5. 배열을 length를 기준으로 sort로 정렬
 var groupAnagrams = function (strs) {
-  const sortedStrs = strs.map((str) => {
-    return str.split("").sort().join("");
-  });
+  let map = new Map();
 
-  let l = 0;
-  let r = strs.length - 1;
-  let arr = [];
-  let tempArr = [];
-  let validArr = [];
+  for (let str of strs) {
+    const str2 = str.split("").sort().join();
 
-  while (l < strs.length) {
-    if (l >= strs.length) break;
-
-    if (validArr.indexOf(l) !== -1) {
-      console.log(l, r, tempArr, validArr);
-      l++;
-      continue;
+    if (!map.has(str2)) {
+      map.set(str2, []);
     }
-
-    if (!tempArr.length) {
-      tempArr.push(strs[l]);
-      if (l === strs.length - 1) {
-        arr.push([strs[l]]);
-        break;
-      }
-    }
-
-    if (sortedStrs[l] === sortedStrs[r]) {
-      tempArr.push(strs[r]);
-      validArr.push(r);
-    }
-    r--;
-
-    if (l === r) {
-      l++;
-      r = strs.length - 1;
-      arr.push(tempArr.sort());
-      tempArr = [];
-    }
+    map.get(str2).push(str);
   }
-  return arr.sort((a, b) => a.length - b.length);
+
+  return [...map.values()].sort((a, b) => a.length - b.length);
 };
 
 console.log(groupAnagrams(strs));
