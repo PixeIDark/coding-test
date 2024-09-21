@@ -11,19 +11,17 @@ const h = 8;
 // 2. k값 뭔지 찍어야함 ㅋㅋ k의 최소값은 piles 전체합/ h
 // 3. 일단 최소값없이 깡으로 ㄱㄱ
 var minEatingSpeed = function (piles, h) {
-  let sum = 0;
-  for (let i = 0; i < piles.length; i++) {
-    sum += piles[i];
-  }
+  let l = 0;
+  let r = piles.length - 1;
 
-  let k = Math.ceil(sum / h);
-  while (true) {
-    let n = 0;
+  while (l < r) {
+    let m = Math.floor((l + r) / 2);
+    let a = 0;
     for (let i = 0; i < piles.length; i++) {
-      n += Math.ceil(piles[i] / k);
+      a += piles[i] / m;
     }
-    if (n === h) return k;
-    else k++;
+
+    if (h === a) return m;
   }
 };
 
