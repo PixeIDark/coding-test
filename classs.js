@@ -23,3 +23,6 @@ class User {
 
 let user = new User("Joh");
 user.sayHi();
+
+let [prev, curr, next] = [null, "head", null];
+console.log(curr.next);
