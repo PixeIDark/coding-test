@@ -22,16 +22,24 @@ let subRoot = new TreeNode(4, 1, 2);
 
 // 재귀함수 순회하면서 같은게 하나라도 존재하면 true
 // 노드랑 비교를 하고 노드의 자식들이 완전히 똑같은지도 비교해야함.
-// 1.
+// 1. 하나는 노드 내려가는 함수
+// 2. 체크하는 함수 둘 다 재귀 함수임.
 var isSubtree = function (root, subRoot) {
-  const dfs = (root, subRoot) => {
-    if (root === subRoot) return true;
-    if (root !== subRoot) return false;
+  const check = (root, subRoot) => {
+    if (!root && !subRoot) return true;
+    if (!root || !subRoot) return false;
+    if (root.val !== subRoot.val) return false;
 
-    if (!root) return;
-    return dfs(root.left, subRoot) || dfs(root.right, subRoot);
+    return check(root.left, subRoot.left) && check(root.right, subRoot.right);
   };
-  return dfs(root, subRoot);
+
+  const dfs = (root) => {
+    if (!root) return false;
+    if (check(root, subRoot)) return true;
+
+    return dfs(root.left) || dfs(root.right);
+  };
+  return dfs(root);
 };
 
 console.log(isSubtree(root, subRoot));
