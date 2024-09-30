@@ -44,4 +44,5 @@ function solution(operations) {
 }
 
 console.log(solution(input));
+// O(n log n) O(n)
 // 나중에 클래스 써서 풀어보자.
