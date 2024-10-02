@@ -7,18 +7,17 @@ const nums = [1, 2, 2];
 //
 var subsetsWithDup = function (nums) {
   let result = [];
-  let set = 1 << nums.length;
-
-  for (let i = 0; i < set; i++) {
-    let temp = [];
-    for (let j = 0; j < nums.length; j++) {
-      if (i & (1 << j)) {
-        temp.push(nums[j]);
-      }
+  nums.sort((a, b) => a - b);
+  const bt = (k, temp) => {
+    result.push([...temp]);
+    for (let i = k; i < nums.length; i++) {
+      if (i > k && nums[i] === nums[i - 1]) continue;
+      temp.push(nums[i]);
+      bt(i + 1, temp);
+      temp.pop();
     }
-    result.push(temp);
-  }
-
+  };
+  bt(0, []);
   return result;
 };
 

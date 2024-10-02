@@ -23,20 +23,38 @@ const nums = [1, 2, 3];
 // };
 
 // 1. 비트마스터.
+// var subsets = function (nums) {
+//   let result = [];
+//   let set = 1 << nums.length;
+
+//   for (let i = 0; i < set; i++) {
+//     let temp = [];
+//     for (let j = 0; j < nums.length; j++) {
+//       if (i & (1 << j)) {
+//         temp.push(nums[j]);
+//       }
+//     }
+//     result.push(temp);
+//   }
+
+//   return result;
+// };
+
+// 2. bt
 var subsets = function (nums) {
   let result = [];
-  let set = 1 << nums.length;
-
-  for (let i = 0; i < set; i++) {
-    let temp = [];
-    for (let j = 0; j < nums.length; j++) {
-      if (i & (1 << j)) {
-        temp.push(nums[j]);
-      }
+  const bt = (k, temp) => {
+    if (k >= nums.length) {
+      result.push([...temp]);
+      return;
     }
-    result.push(temp);
-  }
+    temp.push(nums[k]);
+    bt(k + 1, temp);
+    temp.pop();
+    bt(k + 1, temp);
+  };
 
+  bt(0, []);
   return result;
 };
 
