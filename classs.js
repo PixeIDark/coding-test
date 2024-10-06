@@ -21,8 +21,8 @@ class User {
   }
 }
 
-let user = new User("Joh");
-user.sayHi();
+let user = new User("Johss");
 
+console.log(user.name);
 let [prev, curr, next] = [null, "head", null];
 console.log(curr.next);
