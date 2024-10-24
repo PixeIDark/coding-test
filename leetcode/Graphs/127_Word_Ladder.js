@@ -12,41 +12,68 @@ const beginWord = "hit",
 // queue에 넣고 꺼내쓰는 while ㄱㄱ
 // 해쉬 자료 만들어서 큐에 넣어졌던 얘가 또들어가는 거 방지
 var ladderLength = function (beginWord, endWord, wordList) {
+  // 1. endWord가 wordList에 없으면 불가능
+  if (!wordList.includes(endWord)) return 0;
+
   const queue = [];
-  let vis = new Map();
-  wordList.push(beginWord);
-  for (const word of wordList) {
-    if (word === endWord) {
-      queue.push(word);
-      vis.set(word, [word]);
-      break;
-    }
+  const vis = new Map();
+
+  // 2. endWord부터 시작하는 역방향 BFS 준비
+  queue.push(endWord);
+  vis.set(endWord, []);
+
+  // 3. wordList에 beginWord 추가 (없는 경우 대비)
+  if (!wordList.includes(beginWord)) {
+    wordList.push(beginWord);
   }
 
-  if (queue.length === 0) return 0;
-
+  // 4. BFS 탐색
   while (queue.length > 0) {
     const currWord = queue.shift();
-    // for 순회하면서 단어 하나 차이나는 얘들 queue에 삽입 하나 차이없으면 즉시 0리턴후 함수 종료
-    // 길이가 다른 경우있으면 얼리 리턴
 
     for (const nextWord of wordList) {
+      // 이미 방문한 단어는 스킵
       if (vis.has(nextWord)) continue;
-      let sameStack = 0;
+
+      // 한 글자만 다른지 체크
+      let diffCount = 0;
       for (let i = 0; i < currWord.length; i++) {
-        if (currWord[i] === nextWord[i]) {
-          sameStack++;
+        if (currWord[i] !== nextWord[i]) {
+          diffCount++;
+          if (diffCount > 1) break; // 최적화: 2개 이상 다르면 즉시 중단
         }
       }
 
-      if (sameStack === currWord.length - 1) {
+      // 한 글자만 다른 경우 처리
+      if (diffCount === 1) {
         queue.push(nextWord);
         vis.get(currWord).push(nextWord);
-        vis.set(nextWord, [nextWord]);
+        vis.set(nextWord, []);
       }
     }
   }
-  return vis;
+
+  // 5. beginWord까지 경로가 없으면 불가능
+  if (!vis.has(beginWord)) return 0;
+
+  // 6. 최단 경로 찾기 (역방향으로 추적)
+  let current = beginWord;
+  const path = [beginWord];
+
+  while (current !== endWord) {
+    let found = false;
+    for (const [word, nextWords] of vis) {
+      if (nextWords.includes(current)) {
+        path.push(word);
+        current = word;
+        found = true;
+        break;
+      }
+    }
+    if (!found) return 0; // 경로가 끊어진 경우
+  }
+
+  return path.length;
 };
 
 console.log(ladderLength(beginWord, endWord, wordList));
