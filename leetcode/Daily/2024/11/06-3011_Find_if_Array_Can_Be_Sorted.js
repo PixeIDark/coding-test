@@ -11,5 +11,38 @@ const num = [8, 4, 2, 30, 15];
 //     The array has become sorted, hence we return true.
 //     Note that there may be other sequences of operations which also sort the array.
 
-//
-var canSortArray = function (nums) {};
+// for문에서 순서 맞나 비교하고, 교체 가능하면 while문으로 첨부터 다시 순회해서 올바른 위치에 삽입.
+// 교체 가능한지 여부는 n & 1 이 트루면 우 쉬프트 후 또 비교후 얼마나 트루가 자주뜨는지.
+// count = if(n & 1 === 1) {count ++} n = n >> 1
+var canSortArray = function (nums) {
+  const map = new Map();
+
+  for (const n of nums) {
+    let count = 0;
+    let bit = n;
+
+    while (bit > 0) {
+      if ((bit & 1) === 1) count++;
+      bit >>= 1;
+    }
+
+    map.set(n, count);
+  }
+
+  for (let i = 1; i < nums.length; i++) {
+    let j = i;
+    while (j > 0) {
+      if (nums[j - 1] < nums[j]) break;
+
+      if (map.get(nums[j - 1]) !== map.get(nums[j])) {
+        return false;
+      }
+      [nums[j - 1], nums[j]] = [nums[j], nums[j - 1]];
+      j--;
+    }
+  }
+
+  return true;
+};
+
+console.log(canSortArray(num));
