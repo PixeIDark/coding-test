@@ -1,56 +1,52 @@
 // t로 최소 윈도우 만들고 반환
 
-const s = "ADOBACODEBANC";
-const t = "ABC";
+const s = "ADOBECODEBANC",
+  t = "ABC";
 // Output: "BANC"
 // Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
 
-// 1. 어케 하냐.. r, l 로 윈도우를 만들어서 s에서 크기 조절하며 비교해
-// 2. 비교 대상은 t를 분해해서 chatCodeAt로 만든 배열이나 해시 맵으로 ㄱㄱ
-// 3. 윈도우 찾을 때마다 전 윈도우랑 비교 후 갱신.
-// 4. 도저히 못하겠다.
+// map객체 두개 준비하고 일치하면 정수 이용해서 size랑 비교 성공시 올바른 str임
+// 슬라이딩 기법 적극 활용
 var minWindow = function (s, t) {
-  // t의 문자 빈도수를 저장할 Map
-  let map = new Map();
-  for (let char of t) {
-    map.set(char, (map.get(char) || 0) + 1);
+  if (s.length < t.length) return "";
+  const need = new Map();
+
+  for (const char of t) {
+    need.set(char, need.get(char) + 1 || 1);
   }
 
-  let left = 0,
-    right = 0;
-  let count = map.size; // 찾아야 할 고유 문자의 수
-  let minLen = Infinity;
-  let minWindow = "";
+  let l = 0;
+  let r = 0;
+  let valid = 0;
+  let start = 0;
+  let minlength = Infinity;
+  const window = new Map();
 
-  while (right < s.length) {
-    // 오른쪽 포인터 이동
-    let rightChar = s[right];
-    if (map.has(rightChar)) {
-      map.set(rightChar, map.get(rightChar) - 1);
-      if (map.get(rightChar) === 0) count--;
+  for (let i = 0; i < s.length; i++) {
+    r = i;
+
+    if (need.has(s[i])) {
+      window.set(s[i], window.get(s[i]) + 1 || 1);
+      if (need.get(s[i]) === window.get(s[i])) valid++;
     }
 
-    // 모든 문자를 찾았을 때
-    while (count === 0) {
-      // 최소 윈도우 갱신
-      if (right - left + 1 < minLen) {
-        minLen = right - left + 1;
-        minWindow = s.slice(left, right + 1);
+    while (valid === need.size) {
+      if (minlength > r - l + 1) {
+        minlength = r - l + 1;
+        start = l;
       }
 
-      // 왼쪽 포인터 이동
-      let leftChar = s[left];
-      if (map.has(leftChar)) {
-        map.set(leftChar, map.get(leftChar) + 1);
-        if (map.get(leftChar) > 0) count++;
+      const char = s[l];
+
+      l++;
+
+      if (need.has(char)) {
+        if (window.get(char) === need.get(char)) valid--;
+        window.set(char, window.get(char) - 1);
       }
-      left++;
     }
-
-    right++;
   }
-
-  return minWindow;
+  return minlength === Infinity ? "" : s.slice(start, start + minlength);
 };
 
 console.log(minWindow(s, t));
