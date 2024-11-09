@@ -11,16 +11,33 @@ const k = 3;
 //  1  3  -1  -3 [5  3  6] 7       6
 //  1  3  -1  -3  5 [3  6  7]      7
 
-// 4개씩 slice로 묶어가지고 max값 꺼내면 되지않냐?
-// 시간 초과 ㅋㅋㅋㅋ
-// 1. max 라는 친구 만들어서 값을 넣고 이를 뛰어넘는 녀석이
+// 양방향 큐로 조져보자
 var maxSlidingWindow = function (nums, k) {
-  // let arr = [];
-  // for (let i = 0; i + k <= nums.length; i++) {
-  //   let max = Math.max(...nums.slice(i, i + k));
-  //   arr.push(max);
-  // }
-  // return arr;
+  const queue = [];
+  const result = [];
+
+  for (let i = 0; i < k; i++) {
+    while (queue.length && nums[i] >= nums[queue[queue.length - 1]]) {
+      queue.pop();
+    }
+    queue.push(i);
+  }
+  result.push(nums[queue[0]]);
+
+  for (let i = k; i < nums.length; i++) {
+    if (queue[0] <= i - k) {
+      queue.shift();
+    }
+
+    while (queue.length && nums[i] >= nums[queue[queue.length - 1]]) {
+      queue.pop();
+    }
+
+    queue.push(i);
+    result.push(nums[queue[0]]);
+  }
+
+  return result;
 };
 
 console.log(maxSlidingWindow(nums, k));
