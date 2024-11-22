@@ -1,9 +1,9 @@
 // 단어 검색
 const board = [
-  ["a", "b"],
-  ["c", "d"],
-];
-word = "abcd";
+    ["a", "b"],
+    ["c", "d"],
+  ],
+  word = "abcd";
 // Output: true
 
 // [][k]가 마지막 length면 다음 단계로 넘어가라.
