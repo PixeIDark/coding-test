@@ -1,11 +1,9 @@
 // 섬 면적 구하기. 0 => 1 하나 바꿔서
 
 const grid = [
-  [1, 0, 0, 1, 1],
-  [1, 0, 0, 1, 0],
-  [1, 1, 1, 1, 1],
-  [1, 1, 1, 0, 1],
-  [0, 0, 0, 1, 0],
+  [1, 0, 1],
+  [0, 0, 0],
+  [0, 1, 1],
 ];
 // Output: 3
 // Explanation: Change one 0 to 1 and connect two 1s, then we get an island with area = 3.
@@ -19,42 +17,46 @@ const grid = [
 var largestIsland = function (grid) {
   const m = grid.length;
   const n = grid[0].length;
-  const vis = Array.from({ length: m }, () => Array(n).fill(0));
   const dir = [
     [1, 0],
     [-1, 0],
     [0, -1],
     [0, 1],
   ];
-  // 0 만나도 한번은 생환 가능.
-  let isChance = true;
-
-  const dfs = (y, x) => {
-    if (vis[y][x]) return 0;
+  const vis = Array.from({ length: m }, () => Array(n).fill(0));
+  let landCount = 0;
+  let isPerfect = true;
+  // 0 은 전역 vis 에서도 밴 해 버리자.
+  const dfs = (y, x, z) => {
+    if (vis[y][x]) return;
     vis[y][x] = 1;
 
-    if (!grid[y][x] && !isChance) return 0;
-    if (!grid[y][x]) isChance = false;
-
-    let landCount = 1;
+    if (!grid[y][x] && !z) {
+      return;
+    }
+    if (!grid[y][x]) {
+      z = false;
+      isPerfect = false;
+    } else landCount++;
 
     for (const [dy, dx] of dir) {
       const ny = dy + y;
       const nx = dx + x;
 
-      if (ny >= 0 && nx >= 0 && ny < m && nx < n)
-        landCount += dfs(ny, nx, isChance);
+      if (ny >= 0 && nx >= 0 && ny < m && nx < n) dfs(ny, nx, z);
     }
-    return landCount;
   };
 
   let result = 1;
   for (let y = 0; y < m; y++) {
     for (let x = 0; x < n; x++) {
-      if (vis[y][x] || !grid[y][x]) continue;
-      const islands = dfs(y, x);
-      result = Math.max(result, islands);
-      isChance = true;
+      if (!grid[y][x] || vis[y][x]) continue;
+      dfs(y, x, true);
+      console.log(y, x);
+      if (!isPerfect) landCount++;
+      result = Math.max(result, landCount);
+      landCount = 0;
+      isPerfect = true;
     }
   }
 
