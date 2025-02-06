@@ -18,7 +18,7 @@ var tupleSameProduct = function (nums) {
   const samePares = {};
   let result = 0;
 
-  // map 이 3배 정도 빠름 n = 1000 기준
+  // map 이 3배 정도 빠름 n = 1000 기준 숫자를 키로 저장하는 경우 obj 는 문자열로 바꿔주는 과정과 해시 탐색 과정 필요
   for (let i = 0; i < nums.length; i++) {
     for (let j = i + 1; j < nums.length; j++) {
       const num = nums[i] * nums[j];
