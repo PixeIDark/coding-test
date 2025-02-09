@@ -21,19 +21,18 @@ const limit = 4,
 var queryResults = function (limit, queries) {
   const colors = new Map();
   const balls = new Map();
-
   const result = [];
+
   for (const [ball, color] of queries) {
     if (balls.has(ball)) {
       const prevColor = balls.get(ball);
-      if (colors.has(prevColor)) {
-        colors.get(prevColor).delete(ball);
-        if (colors.get(prevColor).size === 0) colors.delete(prevColor);
-      }
+      colors.get(prevColor).delete(ball);
+      if (!colors.get(prevColor).size) colors.delete(prevColor);
     }
+
     balls.set(ball, color);
 
-    if (!colors.has(color)) colors.set(color, new Map()); // 여기서 먼저 Map 초기화
+    if (!colors.has(color)) colors.set(color, new Map());
     colors.get(color).set(ball, 1);
 
     result.push(colors.size);
