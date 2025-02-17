@@ -30,3 +30,5 @@ var numTilePossibilities = function (tiles) {
 
   return seen.size;
 };
+
+// https://discord.com/api/webhooks/1341107127153987704/KqqF3YiyU0_AY8dfYTB_t40KaRKEuVUtN6ITHFgLCSGiPBeNg701020ZiR29Y4X4l_Fd
