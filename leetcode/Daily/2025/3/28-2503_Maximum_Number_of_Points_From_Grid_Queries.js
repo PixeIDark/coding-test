@@ -5,7 +5,6 @@ queries = [302302, 351152, 801388, 302842, 190258, 615107, 7606, 893307, 185577,
 // Output: [5,8,1]
 // Explanation: The diagrams above show which cells we visit to get points for each query.
 
-
 // dp 와 bk 혼합
 // queries 를 솔트로 정렬. 인덱스는 기억해두고,
 // 결과는 미리 queries 길이로 만들어 놔
@@ -23,7 +22,6 @@ var maxPoints = function (grid, queries) {
     let failedVis = Array.from({length: n}, () => Array(m).fill(0));
     const result = Array(queries.length).fill(0)
     const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]]
-
 
     let stack = [[-1, 0]]
     let failedGrid = []
