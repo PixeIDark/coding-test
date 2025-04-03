@@ -28,7 +28,6 @@ StockSpanner.prototype.next = function (price) {
     this.dp.push(1)
 
     if (this.stack.length >= 2 && this.stack[this.stack.length - 1] < this.stack[this.stack.length - 2]) this.dp[this.dp.length - 1] += this.dp[this.dp.length - 2]
-
 };
 // 이거 지금 절대 못품 ㅈㅈ
 /**
