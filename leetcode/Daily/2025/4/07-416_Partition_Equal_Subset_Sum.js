@@ -1,6 +1,6 @@
 // 두 배열로 분할해서 요소 총합이 같은지
 
-const nums = [1, 5, 11, 5]
+const nums = [23, 13, 11, 7, 6, 5, 5]
 // Output: true
 // Explanation: The array can be partitioned as [1, 5, 5] and [11].
 
@@ -12,16 +12,40 @@ var canPartition = function (nums) {
     if (total % 2 === 1) return false;
 
     const target = total / 2
-    const dp = Array(target + 1).fill(false);
-    dp[0] = true
+    const map = new Map()
+    map.set(0, true)
 
     for (const num of nums) {
-        for (let i = target; i >= num; i--) {
-            dp[i] = dp[i] || dp[i - num]
+        const limited = map.size
+        let i = 0
+
+        for (const [key, _] of map) {
+            const newKey = key + num
+            if (newKey === target) return true
+            map.set(newKey, true)
+            i++
+            if (limited === i) break
         }
     }
-
-    return dp[target]
+    
+    return map.has(target)
 };
 
 console.log(canPartition(nums));
+
+// var canPartition = function (nums) {
+//     const total = nums.reduce((sum, num) => sum + num, 0);
+//     if (total % 2 === 1) return false;
+//
+//     const target = total / 2
+//     const dp = Array(target + 1).fill(false);
+//     dp[0] = true
+//
+//     for (const num of nums) {
+//         for (let i = target; i >= num; i--) {
+//             dp[i] = dp[i] || dp[i - num]
+//         }
+//     }
+//
+//     return dp[target]
+// };
