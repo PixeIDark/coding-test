@@ -12,8 +12,7 @@ var canPartition = function (nums) {
     if (total % 2 === 1) return false;
 
     const target = total / 2
-    const map = new Map()
-    map.set(0, true)
+    const map = new Map([[0, true]])
 
     for (const num of nums) {
         const limited = map.size
@@ -27,7 +26,7 @@ var canPartition = function (nums) {
             if (limited === i) break
         }
     }
-    
+
     return map.has(target)
 };
 
