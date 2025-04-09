@@ -1,6 +1,10 @@
 // 최대 너비 구하기
 
-const matrix = [["1", "0", "1", "0", "0"], ["1", "0", "1", "1", "1"], ["1", "1", "1", "1", "1"], ["1", "0", "0", "1", "0"]]
+const matrix =
+    [["1", "0", "1", "0", "0"],
+        ["1", "0", "1", "1", "1"],
+        ["1", "1", "1", "1", "1"],
+        ["1", "0", "0", "1", "0"]]
 // Output: 6
 // Explanation: The maximal rectangle is shown in the above picture.
 
@@ -9,48 +13,38 @@ const matrix = [["1", "0", "1", "0", "0"], ["1", "0", "1", "1", "1"], ["1", "1",
 // 단조로 도저히 안떠오른다 bk vis 가자
 // 벽
 var maximalRectangle = function (matrix) {
-    const n = matrix.length
-    const m = matrix[0].length
-    const vis = Array.from({length: n}, () => Array(m).fill(0))
-
-    const bk = (y, x, sum) => {
-        if (y < 0 || y >= n || matrix[y][x] === "0") {
-            return sum
-        }
-        vis[y][x] = 1
-
-        return bk(y + 1, x, sum + 1)
-
-
-    }
-
-    let result = 0
-
-    for (let i = 0; i < n; i++) {
-
-        let height = Infinity
-        let width = 1
-        for (let j = 0; j < m; j++) {
-
-            if (vis[i][j]) continue
-            if (matrix[i][j] === "0") {
-                if (height === Infinity || width === 0) continue
+    // 이거 매트릭스를 순회하면서 각 인덱스 만들어서 1이면 길이 업 시키고 0 이면 길이 0으로 초기화 시켜야해
+    // 길이들을 오름차 단조스택으로 만들고, 어긋날 때마다 자기 위치 길이 계산 시켜주자
+    const calRectangle = (heights) => {
+        const stack = [-1]
+        let result = 0
+        // [ 1, 3, 3, 2, 2 ]
+        for (let i = 0; i <= heights.length; i++) {
+            while (stack.length > 1 && (heights[stack[stack.length - 1]] > heights[i] || i === heights.length)) {
+                const height = heights[stack.pop()]
+                const width = i - stack[stack.length - 1] - 1
                 result = Math.max(result, height * width)
-                console.log(height, width, i, j)
-                height = Infinity
-                width = 1
-            } else {
-                const a = bk(i, j, 0)
-                height = Math.min(height, a)
-                width++
             }
 
-            if (width && j === m - 1) result = Math.max(result, height * width)
+            stack.push(i)
         }
+
+        return result
+    }
+
+    const heights = Array(matrix[0].length).fill(0);
+    let result = 0
+
+    for (const mat of matrix) {
+        for (let i = 0; i < mat.length; i++) {
+            if (mat[i] === "1") heights[i]++
+            else heights[i] = 0
+        }
+
+        result = Math.max(result, calRectangle(heights))
     }
 
     return result
-
 };
 
 console.log(maximalRectangle(matrix))
