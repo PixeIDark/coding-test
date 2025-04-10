@@ -36,4 +36,6 @@ var numberOfPowerfulInt = function (start, finish, limit, s) {
         // limit 못 넘게 조절해야함
         if(i)
     }
+
+    //
 };
