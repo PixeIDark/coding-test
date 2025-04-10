@@ -17,6 +17,7 @@ const start = 1, finish = 6000000, limit = 4, s = "124"
 // 빈틈이 0개면? 1개의 경우 123
 // 즉, 빈틈이 5개면 빈틈 0,1,2,3,4,5 개일 때의 경우의 수를 각각 범위만큼 계산 하고 서로 다 더한값임
 // start 가 s 보다 크거나 finish 가 s 보다 작으면 0 출력
+// TODO: 벽
 var numberOfPowerfulInt = function (start, finish, limit, s) {
     if (start > Number(s) || finish < Number(s)) return 0
 
@@ -37,5 +38,4 @@ var numberOfPowerfulInt = function (start, finish, limit, s) {
         if(i)
     }
 
-    //
 };
