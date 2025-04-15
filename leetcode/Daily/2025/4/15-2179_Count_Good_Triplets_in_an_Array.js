@@ -8,6 +8,7 @@ const nums1 = [4, 0, 1, 3, 2], nums2 = [4, 1, 0, 2, 3]
 // num2 만 인덱스와 요소 가진 2차원 오름차 배열로 재정렬
 // num1 에서 x 요소를 정하면 num2 에서 이진 탐색으로 요소를 찾고 인덱스를 기록
 // num1 에서 y 요소를 이어서 찾고 num2 에서 이진 탐색으로 찾고 기억한 인덱스보다 크기가 큰지 비교후 멈추거나 이어감
+// TODO: 벽-시간초과
 var goodTriplets = function (nums1, nums2) {
     nums2 = nums2.map((n, i) => [n, i]).sort((a, b) => a[0] - b[0])
 
