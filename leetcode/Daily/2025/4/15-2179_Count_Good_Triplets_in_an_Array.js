@@ -41,6 +41,9 @@ var goodTriplets = function (nums1, nums2) {
     // 좀더 창의적으로 x,z 만 찾고 인덱스의 차이만큼 개수 카운트가 안되지
     // y2 값을 num1 에 일일이 찾아봐야함 있나없나
     // 걍 세그먼트, 펜윅트리 모르는 범부라 풀수 없음 제한시간내에
+
+    // 기준을 y로 하고 y앞 arr 과 y 뒤 arr 을 만들고
+    // y 앞의 x 값을 기준으로 arr 앞을 탐색해서 존재하는지 x 값 증가시켜서 또 존재하는지 이거 기억해서 y값 증가했을때 함 더써먹으면 됨.
     for (let i = 0; i < nums1.length; i++) {
         const x1 = i
         const x2 = binarySearch(nums1[i])
