@@ -1,6 +1,6 @@
 // 쌍 k 개 이상인 부분 배열 개수
 
-const nums = [3, 1, 4, 3, 2, 2, 4], k = 2
+const nums = [1, 1, 1, 1, 1], k = 10
 // Output: 4
 // Explanation: There are 4 different good subarrays:
 // - [3,1,4,3,2,2] that has 2 pairs.
@@ -24,35 +24,22 @@ var countGood = function (nums, k) {
     let pairs = 0
 
     // 무조건 r 증가시키고 조건이 충족되면 그때부터 l을 감소시키면서 최소 지점을 찾아야함
-    let last = 0
     let left = 0
     let right = 0
-    nums.push(-1)
+
     while (right < nums.length) {
-        const count = (map.get(nums[right]) ?? 0) + 1
-        pairs += (count * (count - 1) - (count - 1) * (count - 2)) / 2
-        map.set(nums[right], count)
+        const count = map.get(nums[right]) ?? 0
+        pairs += count
+        map.set(nums[right], count + 1)
 
-        last = left
-        while (pairs >= k && left < right) {
+        while (pairs >= k && left <= right) {
             // left 기준으로해서 필요없는얘 제거해야함
-            const prev = map.get(nums[left])
+            result += nums.length - right
+
+            const leftCount = map.get(nums[left])
             // 56 42 30 20 12
-
-            if (prev === 1) {
-                map.delete(nums[left])
-                left++
-            } else break
-        }
-
-        if (pairs >= k && right !== nums.length - 1) {
-            // 마지막 left 기억해서 차이를 넣어야함
-            const sum = (left - last + 1) * (nums.length - 1 - right)
-            result += sum
-            // left가 올라가면 바로 다음은 쌍이 있는 녀석임
-            const prev = map.get(nums[left])
-            pairs += ((prev - 1) * (prev - 2) - prev * (prev - 1)) / 2
-            map.set(nums[left], prev - 1)
+            pairs -= leftCount - 1
+            map.set(nums[left], leftCount - 1)
             left++
         }
 
