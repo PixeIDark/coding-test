@@ -13,28 +13,30 @@ const nums = [10, 2, 3, 4, 9, 6, 3, 10, 3, 6, 3, 9, 1], k = 4
 // ! 인덱스 중 하나라도 k로 나누어 떨어지면 두 인덱스가 곱해져도 나누어 떨어져
 // 인덱스 둘다 안나누어 떨어져도 곱하면 나누어 떨어질 수도 있음
 var countPairs = function (nums, k) {
-    const map = new Map()
-    nums.forEach((num, idx) => {
-        if (map.has(num)) map.get(num).push(idx)
-        else map.set(num, [idx])
-    })
-
     let result = 0
-    for (const [_, arr] of map) {
-        // 나누어 떨어지면 인덱스부터 길이까지 더하고 종료
-        // 안되면 일일이 합쳐봐야함
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i] % k === 0) {
-                result += arr.length - 1 - i
-                continue
-            }
+    const map = new Map()
 
-            for (let j = i + 1; j < arr.length; j++) {
-                if (arr[i] * arr[j] % k === 0) result++
+    for (let i = 0; i < nums.length; i++) {
+        const num = nums[i]
+        if (!map.has(num)) {
+            map.set(num, [i])
+            continue
+        }
+
+        map.get(num).push(i)
+        if (i % k === 0) {
+            result += map.get(num).length - 1
+            continue
+        }
+
+        for (let j = 0; j < map.get(num).length - 1; j++) {
+            if ((map.get(num)[j] * i) % k === 0) {
+                result++;
             }
         }
+
     }
-    
+
     return result
 };
 
