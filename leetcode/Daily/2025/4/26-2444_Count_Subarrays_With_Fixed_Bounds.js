@@ -21,7 +21,7 @@ var countSubarrays = function (nums, minK, maxK) {
     // left 와 right 가 이레귤러 사이에 있어야해
     // right 가 증가하다가 이레귤러에 걸리면 반응해야함 만약에 minK, maxK 가 counts 에걸리지 않으면 이레귤러 다음에 left랑 right를 초기화시키고 다시 시작
     // 매 순간 minK, maxK has 하다가 되면 left 를 최대한 당겨오고 (이레귤러 안걸린다는 가정하에)
-    //
+
 
     while (right < n) {
         const addNum = nums[right]
