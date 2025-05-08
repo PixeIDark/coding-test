@@ -93,11 +93,11 @@ var minTimeToReach = function (moveTime) {
             if (ny < 0 || ny >= n || nx < 0 || nx >= m) continue
 
             const nextTime = Math.max(moveTime[ny][nx], time) + value
-            const nextValue = value === 1 ? 2 : 1
 
             if (nextTime < times[ny][nx]) {
-                times[ny][nx] = nextTime
+                const nextValue = value === 1 ? 2 : 1
                 pq.add([ny, nx, nextTime, nextValue], 2)
+                times[ny][nx] = nextTime
             }
         }
     }
