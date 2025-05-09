@@ -7,6 +7,7 @@ const nums = [1, 12, -5, -6, 50, 3], k = 1
 // 슬라이딩 윈도우
 // - 평균치로 비교 안하고 합산 값으로 비교해도됨
 // - 길이가 고정
+// 13분
 var findMaxAverage = function (nums, k) {
     const n = nums.length
     let sum = 0
@@ -14,7 +15,7 @@ var findMaxAverage = function (nums, k) {
     for (let i = 0; i < k; i++) sum += nums[i]
 
     let maxSum = sum
-    
+
     for (let i = k; i < n; i++) {
         sum += nums[i] - nums[i - k]
         maxSum = Math.max(maxSum, sum)
