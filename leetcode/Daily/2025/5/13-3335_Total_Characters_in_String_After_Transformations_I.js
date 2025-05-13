@@ -35,14 +35,10 @@ var lengthAfterTransformations = function (s, t) {
         dp[idx]++
     }
 
-
     for (let i = 0; i < t; i++) {
-        const zCount = dp[25] % MOD
+        const zCount = dp[25]
 
-        for (let j = 24; j >= 0; j--) {
-            // Int32Array 는 언디파인드가 할당되면 0 으로 변환되버림 ?? 안써도됨
-            dp[j + 1] = (dp[j] % MOD)
-        }
+        for (let j = 24; j >= 0; j--) dp[j + 1] = (dp[j] % MOD)
 
         dp[0] = zCount
         dp[1] = (dp[1] + zCount) % MOD
