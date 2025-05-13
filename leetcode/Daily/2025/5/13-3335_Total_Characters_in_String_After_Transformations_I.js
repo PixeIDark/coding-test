@@ -1,6 +1,6 @@
 // t 번 문자열을 바꾼 후 최종 문자열의 길이 반환
 
-const s = "abcyy", t = 2
+const s = "azbk", t = 1
 // Output: 7
 
 // 109 + 7.
@@ -26,25 +26,49 @@ const s = "abcyy", t = 2
 // j 는 t의 몫 0 부터 쭉 올라갸야함
 // dp 다 만들면 이제 나머지 부터 26 - 나머지 까지 순회 돌면서 마지막 값의 요소 만큼 * 2 를 해줌
 // 75분
+// var lengthAfterTransformations = function (s, t) {
+//     const MOD = 1e9 + 7
+//     const dp = new Int32Array(26)
+//
+//     for (const char of s) {
+//         const idx = char.charCodeAt(0) - 97
+//         dp[idx]++
+//     }
+//
+//     for (let i = 0; i < t; i++) {
+//         const zCount = dp[25]
+//
+//         for (let j = 24; j >= 0; j--) dp[j + 1] = (dp[j] % MOD)
+//
+//         dp[0] = zCount
+//         dp[1] = (dp[1] + zCount) % MOD
+//     }
+//
+//     return dp.reduce((a, b) => (a + b) % MOD)
+// };
+
 var lengthAfterTransformations = function (s, t) {
     const MOD = 1e9 + 7
     const dp = new Int32Array(26)
+    let result = 0
 
     for (const char of s) {
         const idx = char.charCodeAt(0) - 97
         dp[idx]++
+        result++
     }
 
-    for (let i = 0; i < t; i++) {
-        const zCount = dp[25]
+    let i = 25
 
-        for (let j = 24; j >= 0; j--) dp[j + 1] = (dp[j] % MOD)
+    while (t > 0) {
+        result = (dp[i] + result) % MOD
 
-        dp[0] = zCount
-        dp[1] = (dp[1] + zCount) % MOD
+        dp[(i + 1) % 26] = (dp[(i + 1) % 26] + dp[i]) % MOD
+        i = (i + 25) % 26
+        t--
     }
 
-    return dp.reduce((a, b) => (a + b) % MOD)
+    return result
 };
 
 console.log(lengthAfterTransformations(s, t));
