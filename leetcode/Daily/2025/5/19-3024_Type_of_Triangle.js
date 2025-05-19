@@ -14,6 +14,7 @@ var triangleType = function (nums) {
     let total = nums.reduce((a, b) => a + b)
     let max = Math.max(...nums)
 
+    // 요소가 정수일때는 상관없지만 소수점이 주어진다면 부동소수점 문제가 생길 수 있음 total <= max * 2 가 이상적
     if (total / 2 <= max) return "none"
 
     const setSize = new Set(nums).size
