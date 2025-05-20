@@ -1,6 +1,6 @@
 // R, D 가 최선을 다했을 때 마지막에 승리하는 자 리턴
 
-const senate = "RDRDRDDRDRDRDRDRRDRDRDRDRDRDDDDRRDRDRDRDRDRDRDRRRRRDRDRDRDRDDDDDRDRDRDRDRDRDRDRRDRDRDRDRDRDRRDRDRDRDRDRDRDRDRRDRDRDRDRDRRD"
+const senate = "RDD"
 // Output: "Dire" //RRRRDDDDDD
 // Explanation:
 //     The first senator comes from Radiant and he can just ban the next senator's right in round 1.
@@ -23,40 +23,61 @@ const senate = "RDRDRDDRDRDRDRDRRDRDRDRDRDRDDDDRRDRDRDRDRDRDRDRRRRRDRDRDRDRDDDDD
 // RDDR => RDR
 // 96분
 var predictPartyVictory = function (senate) {
-    const dfs = (senate) => {
-        const queue = []
-        const powers = {R: 0, D: 0}
-        const counts = {R: 0, D: 0}
+    let count = 0
 
-        for (const s of senate) {
-            if (queue.length && queue[queue.length - 1] !== s && powers[queue[queue.length - 1]] >= 1) {
-                powers[queue[queue.length - 1]]--
-            } else {
-                queue.push(s)
-                counts[s]++
-                powers[s]++
+    for (let i = 0; i < senate.length; i++) {
+        const s = senate[i]
+
+        if (s === "R") {
+            if (count < 0) {
+                senate += "D"
             }
-        }
-
-        for (let i = 0; i < queue.length; i++) {
-            const friendly = queue[i]
-            const enemy = friendly === "R" ? "D" : "R"
-
-            if (powers[enemy]) {
-                counts[friendly]--
-                powers[enemy]--
-                queue.splice(i, 1)
-                i--
+            count++
+        } else {
+            if (count > 0) {
+                senate += "R"
             }
+            count--
         }
-
-        if (counts.R !== 0 && counts.D !== 0) return dfs(queue)
-        return counts
     }
 
-    const counts = dfs(senate)
-
-    return counts.R > counts.D ? "Radiant" : "Dire"
+    return count > 0 ? "Radiant" : "Dire"
 };
+// var predictPartyVictory = function (senate) {
+//     const dfs = (senate) => {
+//         const queue = []
+//         const powers = {R: 0, D: 0}
+//         const counts = {R: 0, D: 0}
+//
+//         for (const s of senate) {
+//             if (queue.length && queue[queue.length - 1] !== s && powers[queue[queue.length - 1]] >= 1) {
+//                 powers[queue[queue.length - 1]]--
+//             } else {
+//                 queue.push(s)
+//                 counts[s]++
+//                 powers[s]++
+//             }
+//         }
+//
+//         for (let i = 0; i < queue.length; i++) {
+//             const friendly = queue[i]
+//             const enemy = friendly === "R" ? "D" : "R"
+//
+//             if (powers[enemy]) {
+//                 counts[friendly]--
+//                 powers[enemy]--
+//                 queue.splice(i, 1)
+//                 i--
+//             }
+//         }
+//
+//         if (counts.R !== 0 && counts.D !== 0) return dfs(queue)
+//         return counts
+//     }
+//
+//     const counts = dfs(senate)
+//
+//     return counts.R > counts.D ? "Radiant" : "Dire"
+// };
 
 console.log(predictPartyVictory(senate))
