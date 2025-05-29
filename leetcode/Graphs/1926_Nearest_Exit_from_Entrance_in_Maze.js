@@ -46,4 +46,38 @@ var nearestExit = function (maze, entrance) {
     return -1
 };
 
+var nearestExit = function (maze, entrance) {
+    const n = maze.length
+    const m = maze[0].length
+    const dirs = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+    const vis = Array.from({length: n}, () => Array(m).fill(0))
+    const queue = [entrance]
+    vis[entrance[0]][entrance[1]] = 1
+    let count = 0
+
+    while (queue.length) {
+        const length = queue.length
+
+        for (let i = 0; i < length; i++) {
+            const [y, x] = queue.shift()
+
+            if ((y !== entrance[0] || x !== entrance[1]) && (y === 0 || y === n - 1 || x === 0 || x === m - 1)) return count
+
+            for (const [dy, dx] of dirs) {
+                const ny = dy + y
+                const nx = dx + x
+
+                if (ny >= 0 && ny < n && nx >= 0 && nx < m && maze[ny][nx] === "." && !vis[ny][nx]) {
+                    vis[ny][nx] = 1
+                    queue.push([ny, nx])
+                }
+            }
+        }
+
+        count++
+    }
+
+    return -1
+};
+
 console.log(nearestExit(maze, entrance))
