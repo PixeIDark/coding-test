@@ -1,6 +1,6 @@
 // 두 노드 간선중 가장 가까운 노드 출력 중복이면 가장 낮은 노드, 사이클 존재
 
-const edges = [4, 3, 0, 5, 3, -1], node1 = 4, node2 = 0
+const edges = [2, 2, 3, -1], node1 = 0, node2 = 1
 // Output: 2
 // Explanation: The distance from node 0 to node 2 is 1, and the distance from node 1 to node 2 is 1.
 // The maximum of those two distances is 1. It can be proven that we cannot get a node with a smaller maximum distance than 1, so we return node 2.
@@ -11,48 +11,39 @@ const edges = [4, 3, 0, 5, 3, -1], node1 = 4, node2 = 0
 // node2 로 순회하면서 set 조회함
 // 벽
 var closestMeetingNode = function (edges, node1, node2) {
-    // edges = [2, 0, 0], node1 = 2, node2 = 0
-    // 2,와 0 이 정답이 될수 있지만 더 작은 0 이 정답
-    const dfs = (curr, vis) => {
-        vis.add(curr)
+    // 시작 노드에서 떨어진 거리를 측정
+    // 인덱스는 노드 요소는 거리
 
-        if (edges[curr] !== undefined && !vis.has(edges[curr])) return dfs(edges[curr], vis)
-        else return [...vis]
+    const getDistance = (edges, node) => {
+        const distances = Array(edges.length).fill(-1)
+        let distance = 0
+        let curr = node
+
+        while (curr !== -1 && distances[curr] === -1) {
+            distances[curr] = distance++
+            curr = edges[curr]
+        }
+
+        return distances
     }
 
-    const graph1 = dfs(node1, new Set())
-    const graph2 = dfs(node2, new Set())
+    const a = getDistance(edges, node1)
+    const b = getDistance(edges, node2)
 
-    console.log(graph1, graph2)
-    // 포문으로 서로 크로스 하고 뎁스마다 값을 저장함
-    // 인덱스가 거리, 요소가 노드
+    // 거리 끼리 비교해서 값 구함
+    let min = Infinity
+    let result = -1
 
-    //[[node, node], [node,node,node.node], [node]]
-    // 가장 작은 인덱스를 솔트해서 정답 반환
-    const arr = Array.from({length: edges.length}, () => [])
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] === -1 || b[i] === -1) continue
+        const max = Math.max(a[i], b[i])
 
-    for (let i = 0; i < graph1.length; i++) {
-        for (let j = 0; j < graph2.length; j++) {
-            if (graph1[i] === graph2[j]) arr[j].push(graph1[i])
-            if (graph1[j] === graph2[i]) arr[i].push(graph2[j])
+        if (max < min || max === min && i < result) {
+            min = max
+            result = i
         }
     }
 
-    for (let i = 0; i < graph1.length; i++) {
-        for (let j = 0; j < graph2.length; j++) {
-            if (graph2[i] === graph1[j]) arr[j].push(graph2[i])
-        }
-    }
-
-    let result = 0
-
-    for (const a of arr) {
-        if (a.length) {
-            result = Math.min(a[0], a[1] ?? Infinity)
-            break
-        }
-    }
-    console.log(arr)
     return result
 };
 
