@@ -37,3 +37,7 @@ for (const num of arr) {
 console.timeEnd("forOf")
 
 // 오브젝트 엔트리는 폐급이고, forEach, for 가 젤 빠름
+
+const a = "abcd"
+const b = a.substring(0, 2)
+console.log(b)
