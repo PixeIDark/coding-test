@@ -7,7 +7,7 @@
 // [100] => [100, 80] => [100, 80, 60] => [100, 80, 60,]vs 70
 // 엉터리 이론들임 연속적으로 주식이 낮거나 같냐를 보는거임
 // 24분
-var StockSpanner = function() {
+var StockSpanner = function () {
     this.stack = [];
     this.map = new Map()
 };
@@ -16,11 +16,11 @@ var StockSpanner = function() {
  * @param {number} price
  * @return {number}
  */
-StockSpanner.prototype.next = function(price) {
+StockSpanner.prototype.next = function (price) {
     const n = this.stack.length
     let value = 1
 
-    while(this.stack[this.stack.length - 1] <= price) {
+    while (this.stack[this.stack.length - 1] <= price) {
         const key = this.stack.pop()
         value += this.map.get(key)
     }
