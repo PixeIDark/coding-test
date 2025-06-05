@@ -6,6 +6,7 @@
 ├── classs.js
 ├── leetcode
 │   ├── 1-D DP
+│   │   ├── 1137_N-th_Tribonacci_Number.js
 │   │   ├── 139_Word_Break.js
 │   │   ├── 152_Maximum_Product_Subarray.js
 │   │   ├── 198_House_Robber.js
@@ -55,6 +56,7 @@
 │   ├── Backtracking
 │   │   ├── 131_Palindrome_Partitioning.js
 │   │   ├── 17_Letter_Combinations_of_a_Phone_Number.js
+│   │   ├── 216_Combination_Sum_III.js
 │   │   ├── 39_Combination_Sum.js
 │   │   ├── 40_Combination_Sum_II.js
 │   │   ├── 46_Permutations.js
@@ -66,18 +68,22 @@
 │   │   ├── 1351_Count Negative_Numbers_in_a_Sorted_Matrix.js
 │   │   ├── 153_Find_Minimum_in_Rotated_Sorted_Array.js
 │   │   ├── 1552_Magnetic_Force_Between_Two_Balls.js
+│   │   ├── 162_Find_Peak_Element.js
 │   │   ├── 2089_Find_Target_Indices_After_Sorting_Array.js
+│   │   ├── 2300_Successful_Pairs_of_Spells_and_Potions.js
 │   │   ├── 2389_Longest_Subsequence_With_Limited_Sum.js
 │   │   ├── 2529_Maximum_Count_of_Positive_Integer_and_Negative_Integer.js
 │   │   ├── 2824_Count_Pairs_Whose_Sum_is_Less_than_Target.js
 │   │   ├── 33_Search_in_Rotated_Sorted_Array.js
 │   │   ├── 349_Intersection_of_Two_Arrays.js
+│   │   ├── 374_Guess_Number_Higher_or_Lower.js
 │   │   ├── 4_Median_of_Two_Sorted_Arrays.js
 │   │   ├── 704_Binary_Search.js
 │   │   ├── 74_Search_a_2D_Matrix.js
 │   │   ├── 875_Koko_Eating_Bananas.js
 │   │   └── 981_Time_Based_Key-Value_Store.js
 │   ├── Bit Manipulation
+│   │   ├── 1318_Minimum_Flips_to_Make_a_OR_b_Equal_to_c.js
 │   │   ├── 136_Single_Number.js
 │   │   ├── 190_Reverse_Bits.js
 │   │   ├── 191_Number_of_1_Bits.js
@@ -268,33 +274,44 @@
 │   │       │   ├── 28-2302_Count_Subarrays_With_Score_Less_Than_K.js
 │   │       │   ├── 29-2962_Count_Subarrays_Where_Max_Element_Appears_at_Least_K_Times.js
 │   │       │   └── 30-1295_Find_Numbers_with_Even_Number_of_Digits.js
-│   │       └── 5
-│   │           ├── 01-2071_Maximum_Number_of_Tasks_You_Can_Assign.js
-│   │           ├── 02-838_Push_Dominoes.js
-│   │           ├── 03-1007_Minimum_Domino_Rotations_For_Equal_Row.js
-│   │           ├── 04-1128_Number_of_Equivalent_Domino_Pairs.js
-│   │           ├── 05-790_Domino_and_Tromino_Tiling.js
-│   │           ├── 06-1920_Build_Array_from_Permutation.js
-│   │           ├── 07-3341_Find_Minimum_Time_to_Reach_Last_Room_I.js
-│   │           ├── 08-3342_Find_Minimum_Time_to_Reach_Last_Room_II.js
-│   │           ├── 09-3343_Count_Number_of_Balanced_Permutations.js
-│   │           ├── 10-2918_Minimum_Equal_Sum_of_Two_Arrays_After_Replacing_Zeros.js
-│   │           ├── 11-1550_Three_Consecutive_Odds.js
-│   │           ├── 12-2094_Finding_3-Digit_Even_Numbers.js
-│   │           ├── 13-3335_Total_Characters_in_String_After_Transformations_I.js
-│   │           ├── 14-2900_Longest_Unequal_Adjacent_Groups_Subsequence_I.js
-│   │           ├── 15-3337_Total_Characters_in_String_After_Transformations_II.js
-│   │           ├── 16-2901_Longest_Unequal_Adjacent_Groups_Subsequence_II.js
-│   │           ├── 17-75_Sort_Colors.js
-│   │           ├── 18-1931_Painting_a_Grid_With_Three_Different_Colors.js
-│   │           ├── 19-3024_Type_of_Triangle.js
-│   │           ├── 20-3355_Zero_Array_Transformation_I.js
-│   │           ├── 21-73_Set_Matrix_Zeroes.js
-│   │           ├── 22-3362_Zero_Array_Transformation_III.js
-│   │           ├── 23-3068_Find_the_Maximum_Sum_of_Node_Values.js
-│   │           ├── 24-2942_Find_Words_Containing_Character.js
-│   │           ├── 25-2131_Longest_Palindrome_by_Concatenating_Two_Letter_Words.js
-│   │           └── 26-1857_Largest_Color_Value_in_a_Directed_Graph.js
+│   │       ├── 5
+│   │       │   ├── 01-2071_Maximum_Number_of_Tasks_You_Can_Assign.js
+│   │       │   ├── 02-838_Push_Dominoes.js
+│   │       │   ├── 03-1007_Minimum_Domino_Rotations_For_Equal_Row.js
+│   │       │   ├── 04-1128_Number_of_Equivalent_Domino_Pairs.js
+│   │       │   ├── 05-790_Domino_and_Tromino_Tiling.js
+│   │       │   ├── 06-1920_Build_Array_from_Permutation.js
+│   │       │   ├── 07-3341_Find_Minimum_Time_to_Reach_Last_Room_I.js
+│   │       │   ├── 08-3342_Find_Minimum_Time_to_Reach_Last_Room_II.js
+│   │       │   ├── 09-3343_Count_Number_of_Balanced_Permutations.js
+│   │       │   ├── 10-2918_Minimum_Equal_Sum_of_Two_Arrays_After_Replacing_Zeros.js
+│   │       │   ├── 11-1550_Three_Consecutive_Odds.js
+│   │       │   ├── 12-2094_Finding_3-Digit_Even_Numbers.js
+│   │       │   ├── 13-3335_Total_Characters_in_String_After_Transformations_I.js
+│   │       │   ├── 14-2900_Longest_Unequal_Adjacent_Groups_Subsequence_I.js
+│   │       │   ├── 15-3337_Total_Characters_in_String_After_Transformations_II.js
+│   │       │   ├── 16-2901_Longest_Unequal_Adjacent_Groups_Subsequence_II.js
+│   │       │   ├── 17-75_Sort_Colors.js
+│   │       │   ├── 18-1931_Painting_a_Grid_With_Three_Different_Colors.js
+│   │       │   ├── 19-3024_Type_of_Triangle.js
+│   │       │   ├── 20-3355_Zero_Array_Transformation_I.js
+│   │       │   ├── 21-73_Set_Matrix_Zeroes.js
+│   │       │   ├── 22-3362_Zero_Array_Transformation_III.js
+│   │       │   ├── 23-3068_Find_the_Maximum_Sum_of_Node_Values.js
+│   │       │   ├── 24-2942_Find_Words_Containing_Character.js
+│   │       │   ├── 25-2131_Longest_Palindrome_by_Concatenating_Two_Letter_Words.js
+│   │       │   ├── 26-1857_Largest_Color_Value_in_a_Directed_Graph.js
+│   │       │   ├── 27-2894_Divisible_and_Non-divisible_Sums_Difference.js
+│   │       │   ├── 28-3372_Maximize_the_Number_of_Target_Nodes_After_Connecting_Trees_I.js
+│   │       │   ├── 29-3373_Maximize_the_Number_of_Target_Nodes_After_Connecting_Trees_II.js
+│   │       │   ├── 30-2359_Find_Closest_Node_to_Given_Two_Nodes.js
+│   │       │   └── 31-909_Snakes_and_Ladders.js
+│   │       └── 6
+│   │           ├── 01-2929_Distribute_Candies_Among_Children_II.js
+│   │           ├── 02-135_Candy.js
+│   │           ├── 03-1298_Maximum_Candies_You_Can_Get_from_Boxes.js
+│   │           ├── 04-3403_Find_the_Lexicographically_Largest_String_From_the_Box_I.js
+│   │           └── 05-1061_Lexicographically_Smallest_Equivalent_String.js
 │   ├── Dequeue
 │   │   ├── 1425_Constrained_Subsequence_Sum.js
 │   │   ├── 1438_Longest_Continuous_Subarray_With_Absolute_Diff_Less_Than_or_Equal_to_Limit.js
@@ -305,12 +322,14 @@
 │   │   ├── 130_Surrounded_Regions.js
 │   │   ├── 133_Clone_Graph.js
 │   │   ├── 1466_Reorder_Routes_to_Make_All_Paths_Lead_to_the_City_Zero.js
+│   │   ├── 1926_Nearest_Exit_from_Entrance_in_Maze.js
 │   │   ├── 200_Number_of_Islands.js
 │   │   ├── 207_Course_Schedule.js
 │   │   ├── 210_Course_Schedule_II.js
 │   │   ├── 261_Graph_Valid_Tree.js
 │   │   ├── 286_Walls_and_Gates.js
 │   │   ├── 323_Number_of_Connected_Components_in_an_Undirected_Graph.js
+│   │   ├── 399_Evaluate_Division.js
 │   │   ├── 417_Pacific_Atlantic_Water_Flow.js
 │   │   ├── 547_Number_of_Provinces.js
 │   │   ├── 684_Redundant_Connection.js
@@ -323,6 +342,7 @@
 │   │   ├── 45_Jump_Game_II.js
 │   │   ├── 53_Maximum_Subarray.js
 │   │   ├── 678_Valid_Parenthesis_String.js
+│   │   ├── 714_Best_Time_to_Buy_and_Sell_Stock_with_Transaction_Fee.js
 │   │   ├── 763_Partition_Labels.js
 │   │   └── 846_Hand_of_Straights.js
 │   ├── Hash Map
@@ -343,6 +363,7 @@
 │   │   ├── 252_Meeting_Rooms.js
 │   │   ├── 253_Meeting_Schedule_II.js
 │   │   ├── 435_Non-overlapping_Intervals.js
+│   │   ├── 452_Minimum_Number_of_Arrows_to_Burst_Balloons.js
 │   │   ├── 56_Merge_Intervals.js
 │   │   └── 57_Insert_Interval.js
 │   ├── Linked-List
@@ -429,6 +450,7 @@
 │   │   ├── 872_Leaf-Similar_Trees.js
 │   │   └── 98_Validate_Binary_Search_Tree.js
 │   ├── Tries
+│   │   ├── 1268_Search_Suggestions_System.js
 │   │   ├── 208_Implement_Trie_(Prefix_Tree).js
 │   │   └── 211_Design_Add_and_Search_Words_Data_Structure.js
 │   ├── Two-Pointers
@@ -475,8 +497,8 @@
 │   └── lv4
 │       └── 도둑질.js
 ├── test.js
-├── tree
 ├── tree.js
+├── tree.txt
 ├── 단조.js
 ├── 복사.js
 ├── 비트연산자.js
@@ -485,6 +507,7 @@
 ├── 웹스톰익히기
 ├── 유니온 파인드.js
 ├── 정렬.js
+├── 크루스칼.js
 └── 특문제거.js
 
-49 directories, 439 files
+50 directories, 461 files
