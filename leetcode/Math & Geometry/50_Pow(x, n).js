@@ -1,32 +1,34 @@
-// x의 n제곱 pow(x,n)을 쓰지말고 내가 구현해야함
+// 제곱 함수 만들기
+// n 이 음수면 x => 1/x, 양수면 그대로
+// 나눠서 제곱하는 시스템 만들어야한다 그냥은 tle뜸
+// 나눈 얘들이 서로 곱하게 하는 시스템 dfs 기반으로
+// 20분
+// var myPow = function(x, n) {
+//     const dfs = (pow, n) => {
+//         if(n === 1) return pow
+//         if(n === 0) return 1
 
-const x = 2.0,
-  n = -2147483648;
-// Output: 9.26100
+//         const half = dfs(pow, Math.floor(n / 2))
+//         const result = half * half
 
-// n을 절대값으로 바꾸고 -였으면 보정치를 줘야함.
-// 마이너스이면 1/x가 되야함
-// n짝수면 과감하게 가능.
-var myPow = function (x, n) {
-  if (n === 0 || x === 1) return 1;
-  if (x === -1 && n % 2 === 1) return -1;
-  if (x === -1 && n % 2 === 0) return 1;
+//         return n % 2 === 1 ? result * pow : result
+//     }
 
-  const isMinus = n < 0 ? true : false;
-  n = Math.abs(n);
+//     const result = dfs(x, Math.abs(n))
 
-  let pow = isMinus ? 1 / x : x;
-  for (let i = 1; i < n; i++) {
-    if (pow === 0) return pow;
+//     return n < 0 ? 1 / result : result
+// };
 
-    if (isMinus) {
-      pow = (pow * 1) / x;
-      continue;
-    }
+var myPow = function(x, n) {
+  let result = 1
+  let k = Math.abs(n)
 
-    pow = pow * x;
+  while(k) {
+    if(k % 2 === 1) result *= x
+
+    x *= x
+    k = Math.floor(k / 2)
   }
-  return pow;
-};
 
-console.log(myPow(x, n));
+  return n < 0 ? 1 / result : result
+};
