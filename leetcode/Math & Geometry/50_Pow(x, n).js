@@ -19,16 +19,16 @@
 //     return n < 0 ? 1 / result : result
 // };
 
-var myPow = function(x, n) {
-  let result = 1
-  let k = Math.abs(n)
+var myPow = function (x, n) {
+    let result = 1
+    let k = Math.abs(n)
 
-  while(k) {
-    if(k % 2 === 1) result *= x
+    while (k) {
+        if (k % 2 === 1) result *= x
 
-    x *= x
-    k = Math.floor(k / 2)
-  }
+        x *= x
+        k = Math.floor(k / 2)
+    }
 
-  return n < 0 ? 1 / result : result
+    return n < 0 ? 1 / result : result
 };
