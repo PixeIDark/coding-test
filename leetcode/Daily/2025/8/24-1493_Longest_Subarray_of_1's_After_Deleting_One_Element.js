@@ -4,12 +4,13 @@
 // 12분
 var longestSubarray = function (nums) {
     const n = nums.length
+    const hasZero = nums.some((x) => x === 0)
+
+    if (!hasZero) return n - 1
+
     let first = 0
     let second = 0
     let maxLength = 0
-    let hasZero = nums.some((x) => x === 0)
-
-    if (!hasZero) return n - 1
 
     for (let i = 0; i < n; i++) {
         if (nums[i] === 0) {
