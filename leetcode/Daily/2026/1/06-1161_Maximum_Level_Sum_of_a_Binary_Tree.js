@@ -33,3 +33,33 @@ var maxLevelSum = function (root) {
 
   return maxLevel;
 };
+
+var maxLevelSum = function (root) {
+  const heap = [root];
+  let max = -Infinity;
+  let maxLevel = 0;
+  let level = 1;
+  let head = 0;
+
+  while (heap.length - head > 0) {
+    const n = heap.length - head;
+    let sum = 0;
+
+    for (let i = 0; i < n; i++) {
+      const node = heap[head++];
+      sum += node.val;
+
+      if (node.left) heap.push(node.left);
+      if (node.right) heap.push(node.right);
+    }
+
+    if (sum > max) {
+      max = sum;
+      maxLevel = level;
+    }
+
+    level++;
+  }
+
+  return maxLevel;
+};
