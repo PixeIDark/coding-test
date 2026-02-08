@@ -35,7 +35,7 @@ var isBalanced = function (root) {
 //     const leftDepth = dfs(node.left, depth + 1)
 //     const rightDepth = dfs(node.right, depth + 1)
 
-//     if(Math.abs(leftDepth - rightDepth) > 1) throw new Error("f")
+//     if(Math.abs(leftDepth - rightDepth) > 1) throw {}
 
 //     return Math.max(leftDepth, rightDepth)
 //   }
